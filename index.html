@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stephen Kapalczynski | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --card-bg: #020617;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --radius-lg: 18px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.8);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px 24px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9),
+          rgba(8, 47, 73, 0.85));
+      border-radius: 20px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+    }
+
+    .logo-lockup {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      object-fit: cover;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.9);
+      background: #020617;
+    }
+
+    .name-block h1 {
+      font-size: 1.25rem;
+      letter-spacing: 0.03em;
+    }
+
+    .name-block p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    nav a {
+      font-size: 0.82rem;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+
+    nav a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .btn-linkedin,
+    .btn-resume {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-linkedin {
+      border: 1px solid var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .btn-resume {
+      border: 1px solid #bebebe;
+      background: #273766;
+      color: #f5f5f5;
+    }
+
+    .btn-linkedin:hover {
+      background: rgba(56, 189, 248, 0.22);
+    }
+
+    .btn-resume:hover {
+      background: rgba(168, 85, 247, 0.32);
+    }
+
+    main {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding-bottom: 40px;
+    }
+
+    section {
+      background: radial-gradient(circle at top left,
+          rgba(15, 23, 42, 0.9),
+          rgba(2, 6, 23, 0.96));
+      border-radius: var(--radius-lg);
+      padding: 22px 22px 26px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+    }
+    
+    .contact {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+      margin-top: 15px;
+    }
+
+    .contact a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: 0.2s ease;
+    }
+
+    .contact a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(15, 23, 42, 1);
+    }
+    
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .section-heading h2 {
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-heading p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+      gap: 18px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 14px;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-muted);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .project-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 16px;
+      padding: 14px 14px 16px;
+      border: 1px solid rgba(51, 65, 85, 0.8);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .project-link {
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      color: #e5e7eb;
+      text-decoration: none;
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .project-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .documents-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      font-size: 0.86rem;
+    }
+
+    .documents-list li a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .documents-list li a:hover {
+      text-decoration: underline;
+    }
+    .documents-scroller {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      white-space: nowrap;
+    }
+
+
+    .documents-scroller::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .documents-scroller::-webkit-scrollbar-thumb {
+      background: rgba(148,163,184,0.4);
+      border-radius: 4px;
+    }
+
+    .document-card {
+      min-width: 220px;
+      
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148,163,184,0.2);
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: var(--shadow-soft);
+      scroll-snap-align: start;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: 0.2s ease;
+    }
+
+    .document-card:hover {
+      border-color: #020617;
+      background-color: #1e293b;
+      transform: translateY(-3px);
+    }
+
+    .document-preview {
+      width: 100%;
+      height: 120px;
+      border-radius: 10px;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 10px;
+      border: 1px solid rgba(148,163,184,0.35);
+    }
+
+    .document-title {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 18px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .photo-frame img {
+      max-width: 100%;
+      border-radius: 14px;
+      display: block;
+    }
+
+    footer{
+      text-align: center;
+      font-family: system-ui;
+      font-size: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header>
+      <div class="logo-lockup">
+        <img src="stephen-headshot.jpg" class="avatar"
+          alt="Photo of Stephen Kapalczynski" />
+
+        <div class="name-block">
+          <h1>Stephen Kapalczynski</h1>
+          <p>Informatics · UX Specialization · Psychology Minor</p>
+        </div>
+      </div>
+
+      <nav>
+        <a class="btn-linkedin"
+          href="https://www.linkedin.com/in/stephen-kapalczynki-260764263"
+          target="_blank">
+          <span class="icon">in</span> LinkedIn
+        </a>
+
+        <a class="btn-resume"
+          href="Kapalczynski-Stephen-Resume11.25.pdf"
+          download="Kapalczynski_Stephen_Resume">
+          <span class="icon">⬇</span> Resume
+        </a>
+
+      </nav>
+    </header>
+
+    <main>
+      <section id="about">
+        <div class="section-heading">
+          <h2>Overview</h2>
+        </div>
+
+        <div class="hero-grid">
+          <div>
+            <p>
+              As a Bachelor of Science candidate majoring in Informatics with a specialization in User Experience and a minor in Psychology,
+              I bring a strong knowledge of understanding the need for user-centered design and product development. My experience includes
+              research and user-focused development, focusing on creating projects for different demographics with the final user in mind. I
+              am eager to start my career in front-end design and accessibility, especially within a team environment.
+            </p>
+
+            <div class="pill-row">
+              <span class="pill">User Experience Design</span>
+              <span class="pill">Front-End Development</span>
+              <span class="pill">VR & Accessibility</span>
+              <span class="pill">Social Media & Storytelling</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="section-heading">
+          <h2>Selected Projects</h2>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card">
+            <h3>BudgetBud</h3>
+            <p>HTML project completed Junior year of College focusing on visualizing spending for a College Student.</p>
+
+            <a href="BUDGETBUD.html" class="project-link" target="_blank">
+              ▶ Open BudgetBud
+            </a>
+          </article>
+
+          <article class="project-card">
+            <h3>PROACTIVE VR Style Guide</h3>
+            <p>Finialized Style Guide for a virtural reality project, taking in account both ease of end user and guidelines for students to base their work off of.</p>
+
+            <a href="Style Guide.pdf" class="project-link" target="_blank">
+                ▶ View Style Guide
+            </a>
+          </article>
+
+          <article class="project-card">
+            <h3>Fashion App Wireframing</h3>
+            <p>Figma outline for app completed Junior year of College. Simple wireframing to visualize final product, and picking colors and styles for final app.</p>
+
+            <a href="https://www.figma.com/proto/OQJDzp5epyC7Ze2xsN5grt/Fashion?node-id=21-50&t=wncxmP9DGCTo5ZAu-1"
+              class="project-link" target="_blank">
+              ▶ Open Wireframes
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section id="documents">
+        <div class="section-heading">
+          <h2>Stephen in the Press</h2>
+        </div>
+      
+        <div class="documents-scroller">
+      
+          <a href="https://www.instagram.com/p/DQsBwvukUhu/"
+             target="_blank"
+             class="document-card">
+            <div class="document-preview"
+                 style="background-image:url('press1-preview.jpg');">
+            </div>
+            <div class="document-title">UAlbany Instagram Feature</div>
+          </a>
+      
+          <a href="https://www.albany.edu/news-center/news/2024-cehc-researchers-use-virtual-reality-improve-disaster-preparedness-older"
+             target="_blank"
+             class="document-card">
+            <div class="document-preview"
+                 style="background-image:url('vr-preview.png');">
+            </div>
+            <div class="document-title">CEHC Virtual Reality</div>
+          </a>
+      
+          <a href="https://www.news10.com/news/albany-county/kids-using-lego-pieces-to-dream-big-at-university-at-albany/"
+             target="_blank"
+             class="document-card">
+            <div class="document-preview"
+                 style="background-image:url('lego-day.png');">
+            </div>
+            <div class="document-title">Lego Day</div>
+          </a>
+      
+          
+          <a href="https://www.albany.edu/cehc/student-ambassadors"
+             target="_blank"
+             class="document-card">
+            <div class="document-preview"
+                 style="background-image:url('ambassador.png');">
+            </div>
+            <div class="document-title">Ambassador Profile</div>
+          </a>
+
+          
+          <a href="https://www.instagram.com/p/DQ-AmBJkWyN/"
+             target="_blank"
+             class="document-card">
+            <div class="document-preview"
+                 style="background-image:url('MensBB.png');">
+            </div>
+            <div class="document-title">Mens Basketball Video Edit</div>
+          </a>
+
+          
+          <a href="https://issuu.com/ualbanymt/docs/the_rocky_horror_show"
+             target="_blank"
+             class="document-card">
+            <div class="document-preview"
+                 style="background-image:url('Rocky.png');">
+            </div>
+            <div class="document-title">Rocky Horror Picture</div>
+          </a>
+      
+        </div>
+      </section>
+      
+
+
+      <section id="contact">
+        <div class="section-heading">
+          <h2>Contact</h2>
+        </div>
+      
+        <div class="contact-grid">
+          <div>
+            <p>You can reach me on LinkedIn, and view and download my resume here.</p>
+          </div>
+      
+          <div class="resume" style="border:1px solid rgba(148,163,184,0.25); border-radius:12px; overflow:hidden;">
+            <embed 
+              src="Kapalczynski-Stephen-Resume11.25.pdf"
+              type="application/pdf"
+              width="100%"
+              height="500px"
+            />
+          </div>
+        </div>
+      </section>
+      <div class="contact">
+        <a href="mailto:skapalczynski@albany.edu">
+            <span>Email</span>
+          </a>
+          <a href="tel:(716)572-1176">
+            <span>Phone</span>
+          </a>
+          <a href="https://www.linkedin.com/in/stephen-kapalczynki-260764263"
+             target="_blank" rel="noopener noreferrer">
+            <span>LinkedIn</span>
+          </a>
+      </div>
+      </section>
+    </main>
+
+    <footer>
+      &copy; <span id="year"></span> Stephen Kapalczynski · Portfolio
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent =
+        new Date().getFullYear();
+    </script>
+  </div>
+</body>
+</html>

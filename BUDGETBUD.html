@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BudgetBud</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #f4f9f8;
+      color: #333;
+      padding: 20px;
+      text-align: center;
+      font-size: medium;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #2c7a7b;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      display: none;
+      width: 90vw;
+      max-width: 500px;
+      max-height: 90vh;
+      color: #f0fdfc;
+      overflow-y: auto;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 1rem;
+      line-height: 2;
+      text-align: left;
+    }
+
+
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      font-size: small;
+    }
+
+    h1 {
+      color: #2c7a7b;
+    }
+
+    .overview {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      width: 30%;
+      flex-grow: 1;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    input, select, button {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #2c7a7b;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #375355;
+    }
+
+    canvas {
+      margin-top: 20px;
+    }
+
+    #transactionsList div {
+      text-align: left;
+      padding: 8px 0;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .income-entry {
+      color: #2c7a7b;
+    }
+
+    .expense-entry {
+      color: #f56565;
+    }
+
+    #noTransactions{
+      text-align: center;
+      margin-top: 20px;
+      font-size: small;
+      color: #f56565;
+    }
+
+    @media (max-width: 500px) {
+      .overview {
+        flex-direction: column;
+      }
+
+      .card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+ <div class="popup" id="popup">
+    <h2>Welcome to BudgetBud!</h2>
+    <p>To get started, fill in values at the top of the page, and see your savings grow!</p>
+    <button id="closePopup">Got it!</button>
+  </div>
+
+  <div class="container">
+    <h1>BudgetBud</h1>
+    <p>Track your spending. Stress-free.</p>
+
+    <div class="overview">
+      <div class="card">
+        <h2>Income</h2>
+        <p id="incomeAmount">$0</p>
+      </div>
+      <div class="card">
+        <h2>Expenses</h2>
+        <p id="expenseAmount">$0</p>
+      </div>
+      <div class="card">
+        <h2>Savings</h2>
+        <p id="savingsAmount">$0</p>
+      </div>
+    </div>
+
+    <form id="transactionForm">
+      <input type="text" id="description" placeholder="Description" required>
+      <input type="number" id="amount" placeholder="Amount" required>
+      <select id="transactionType">
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+      <button type="submit">Add Transaction</button>
+    </form>
+
+    <canvas id="budgetChart"></canvas>
+  </div> <br>
+
+  <div class="container">
+    <h2>Transactions</h2>
+    <div id="transactionsList"></div>
+    <p id="noTransactions" style="display: none;">No transactions yet, please insert data above.</p>
+    <p id="totalTransactions" style="display: none;">Total Transactions: <span id="totalCount">0</span></p>
+  </div>
+
+  <script>
+    let income = parseFloat(localStorage.getItem("income")) || 0;
+    let expenses = parseFloat(localStorage.getItem("expenses")) || 0;
+    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
+    const incomeAmount = document.getElementById("incomeAmount");
+    const expenseAmount = document.getElementById("expenseAmount");
+    const savingsAmount = document.getElementById("savingsAmount");
+    const form = document.getElementById("transactionForm");
+    const transactionsList = document.getElementById("transactionsList");
+    const totalCount = document.getElementById("totalCount");
+    const noTransactions = document.getElementById("noTransactions");
+    const totalTransactions = document.getElementById("totalTransactions");
+
+    const popup = document.getElementById("popup");
+    const closePopup = document.getElementById("closePopup");
+
+    let budgetChart;
+
+    window.onload = () => {
+      updateDisplay();
+      displayTransactions();
+      initChart();
+
+      // Show popup only once per session
+      if (!sessionStorage.getItem("popupShown")) {
+        popup.style.display = "block";
+        sessionStorage.setItem("popupShown", "true");
+      }
+
+      closePopup.addEventListener("click", () => {
+        popup.style.display = "none";
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const description = document.getElementById("description").value.trim();
+        const amount = parseFloat(document.getElementById("amount").value);
+        const type = document.getElementById("transactionType").value;
+
+        if (!description) {
+          alert("You'll need a description before continuing.");
+          return;
+        }
+
+        if (isNaN(amount) || amount <= 0) {
+          alert("Please only enter a positive number.");
+          return;
+        }
+
+        if (type === "income") {
+          income += amount;
+        } else {
+          expenses += amount;
+        }
+
+        const transaction = {
+          description,
+          amount,
+          type,
+          date: new Date().toLocaleString()
+        };
+
+        transactions.push(transaction);
+
+        localStorage.setItem("income", income);
+        localStorage.setItem("expenses", expenses);
+        localStorage.setItem("transactions", JSON.stringify(transactions));
+
+        updateDisplay();
+        updateChart();
+        displayTransactions();
+        form.reset();
+      });
+    };
+
+    function updateDisplay() {
+      incomeAmount.textContent = `$${income.toFixed(2)}`;
+      expenseAmount.textContent = `$${expenses.toFixed(2)}`;
+      savingsAmount.textContent = `$${(income - expenses).toFixed(2)}`;
+    }
+
+    function initChart() {
+      const ctx = document.getElementById("budgetChart").getContext("2d");
+      budgetChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: ["Income", "Expenses"],
+          datasets: [{
+            label: "Budget Overview",
+            data: [income, expenses],
+            backgroundColor: ["#2c7a7b", "#f56565"],
+            borderWidth: 2,
+            hoverOffset: 10,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: "bottom" }
+          },
+        }
+      });
+    }
+
+    function updateChart() {
+      budgetChart.data.datasets[0].data = [income, expenses];
+      budgetChart.update();
+    }
+
+    function displayTransactions() {
+      transactionsList.innerHTML = "";
+
+      if (transactions.length === 0) {
+        noTransactions.style.display = "block";
+        totalTransactions.style.display = "none";
+        return;
+      }
+
+      noTransactions.style.display = "none";
+      totalTransactions.style.display = "block";
+      totalCount.textContent = transactions.length;
+
+      transactions.slice().reverse().forEach(({ description, amount, type, date }) => {
+        const item = document.createElement("div");
+        item.className = type === "income" ? "income-entry" : "expense-entry";
+        item.innerHTML = `<strong>${description}</strong> - $${amount.toFixed(2)} (${type})<br><small>${date}</small>`;
+        transactionsList.appendChild(item);
+      });
+    }
+
+  </script>
+
+</body>
+</html>
