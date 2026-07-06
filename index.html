@@ -227,7 +227,6 @@ footer {
   font-size: 0.75rem;
   color: var(--muted);
 }
-
 /* PRESS / MEDIA - HORIZONTAL SCROLL FIXED */
 .scroller {
   display: flex;
@@ -238,6 +237,7 @@ footer {
   -webkit-overflow-scrolling: touch;
 }
 
+/* makes each card lock nicely while scrolling */
 .press-card {
   min-width: 240px;
   flex: 0 0 auto;
@@ -256,17 +256,20 @@ footer {
   border-color: var(--accent);
 }
 
+/* image preview */
 .preview {
   height: 130px;
   background-size: cover;
   background-position: center;
 }
 
+/* title */
 .press-title {
   padding: 10px;
   font-size: 0.85rem;
 }
 
+/* scrollbar styling */
 .scroller::-webkit-scrollbar {
   height: 8px;
 }
@@ -345,22 +348,20 @@ footer {
       <p>UX/UI prototype focused on mobile fashion discovery and interaction design.</p>
       <a href="https://www.figma.com/proto/OQJDzp5epyC7Ze2xsN5grt/Fashion?node-id=21-50" target="_blank">Open →</a>
     </div>
-
-    <!-- NEW WRITING SAMPLE ADDED -->
     <div class="card">
       <h3>Writing Sample</h3>
       <p>Academic final paper demonstrating research and critical writing in Informatics & UX.</p>
       <a href="FinalPaper.pdf" target="_blank">View PDF →</a>
     </div>
-
   </div>
 </section>
 
-<!-- PRESS / MEDIA -->
+<!-- PRESS / MEDIA (FULL RESTORED CONTENT) -->
 <section>
   <div class="section-title">Professional & Media Work</div>
 
   <div class="scroller">
+
     <a class="press-card" href="https://www.instagram.com/ualbanycehc/" target="_blank">
       <div class="preview" style="background-image:url('CEHCInsta.png')"></div>
       <div class="press-title">CEHC Instagram</div>
@@ -380,6 +381,32 @@ footer {
       <div class="preview" style="background-image:url('vr-preview.png')"></div>
       <div class="press-title">CEHC Virtual Reality</div>
     </a>
+
+    <a class="press-card" href="https://www.instagram.com/p/DQsBwvukUhu/" target="_blank">
+      <div class="preview" style="background-image:url('press1-preview.jpg')"></div>
+      <div class="press-title">UAlbany Instagram Feature</div>
+    </a>
+
+    <a class="press-card" href="https://www.news10.com/news/albany-county/kids-using-lego-pieces-to-dream-big-at-university-at-albany/" target="_blank">
+      <div class="preview" style="background-image:url('lego-day.png')"></div>
+      <div class="press-title">Lego Day Feature</div>
+    </a>
+
+    <a class="press-card" href="https://www.albany.edu/cehc/student-ambassadors" target="_blank">
+      <div class="preview" style="background-image:url('ambassador.png')"></div>
+      <div class="press-title">Ambassador Profile</div>
+    </a>
+
+    <a class="press-card" href="https://www.instagram.com/p/DQ-AmBJkWyN/" target="_blank">
+      <div class="preview" style="background-image:url('MensBB.png')"></div>
+      <div class="press-title">Men’s Basketball Edit</div>
+    </a>
+
+    <a class="press-card" href="https://issuu.com/ualbanymt/docs/the_rocky_horror_show" target="_blank">
+      <div class="preview" style="background-image:url('Rocky.png')"></div>
+      <div class="press-title">Rocky Horror Feature</div>
+    </a>
+
   </div>
 </section>
 
@@ -396,17 +423,52 @@ footer {
     <img src="image6.jpeg" class="zoomable">
   </div>
 </section>
-
 <!-- RESUME -->
 <section>
   <div class="section-title">Resume</div>
 
-  <div style="border:1px solid var(--border); border-radius:12px; overflow:hidden;">
-    <embed src="resume.pdf" type="application/pdf" width="100%" height="520px"/>
+  <p style="margin-bottom:12px;">
+    Download or preview my full resume including experience in UX design, content creation, social media strategy, and front-end development.
+  </p>
+
+  <div style="
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    align-items:center;
+  ">
+
+    <!-- Download Button -->
+    <a href="resume.pdf" download style="
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      text-decoration:none;
+      color:var(--text);
+      font-size:0.85rem;
+    ">
+
+    </a>
+
+    <!-- Embedded Resume Preview -->
+    <div style="
+      width:100%;
+      border:1px solid var(--border);
+      border-radius:12px;
+      overflow:hidden;
+      background:rgba(15,23,42,0.6);
+    ">
+      <embed 
+        src="resume.pdf"
+        type="application/pdf"
+        width="100%"
+        height="520px"
+      />
+    </div>
+
   </div>
 </section>
-
-<!-- CONTACT -->
+<!-- CONTACT (CENTERED FIXED) -->
 <section>
   <div class="section-title">Contact</div>
 
