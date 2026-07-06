@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Stephen Kapalczynski | Portfolio</title>
+
+<!-- FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   VARIABLES
+========================= */
+:root{
+  --bg:#0b0620;
+  --pink:#ff4fd8;
+  --cyan:#00d4ff;
+  --purple:#8b5cf6;
+  --text:#ffffff;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  width:100%;
+  overflow-x:hidden;
+  background: linear-gradient(135deg,#0b0620,#1a0b2e,#0b0620);
+  color:var(--text);
+  font-family:"Inter", sans-serif;
+  transition: margin-left 0.3s ease;
+}
+
+/* LINKS */
+a{
+  color:var(--pink);
+  text-decoration:none;
+  transition:0.2s;
+}
+
+a:visited{
+  color:#7dd3fc;
+}
+
+a:hover{
+  color:var(--cyan);
+}
+
+/* =========================
+   HEADER (FULL WIDTH NAME)
+========================= */
+.header{
+  width:100%;
+  text-align:center;
+  padding:40px 20px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(12px);
+}
+
+.header h1{
+  font-family:"Bebas Neue", sans-serif;
+  font-size:80px;
+  margin:0;
+  letter-spacing:3px;
+}
+
+.header p{
+  font-family:"Share Tech Mono", monospace;
+  opacity:0.75;
+  font-size:14px;
+}
+
+/* =========================
+   NAV (TOP → LEFT SIDEBAR)
+========================= */
+nav{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:15px 0;
+  font-family:"Share Tech Mono", monospace;
+  transition:0.3s ease;
+}
+
+/* FIXED LEFT NAV ON SCROLL */
+nav.sticky{
+  position:fixed;
+  top:0;
+  left:0;
+  height:100vh;
+  width:200px;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:flex-start;
+  padding:40px 20px;
+  gap:20px;
+
+  background:rgba(0,0,0,0.5);
+  backdrop-filter:blur(14px);
+  border-right:1px solid rgba(255,255,255,0.1);
+  z-index:999;
+}
+
+/* SHIFT CONTENT WHEN NAV FIXED */
+body.nav-active main{
+  margin-left:200px;
+}
+
+/* =========================
+   MAIN
+========================= */
+main{
+  width:100%;
+  padding:40px 20px;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero{
+  text-align:center;
+  padding:90px 20px;
+}
+
+.hero h2{
+  font-family:"Bebas Neue", sans-serif;
+  font-size:52px;
+  letter-spacing:2px;
+}
+
+.hero p{
+  font-family:"Share Tech Mono", monospace;
+  opacity:0.8;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+section{
+  width:100%;
+  padding:70px 0;
+}
+
+.section-title{
+  font-family:"Bebas Neue", sans-serif;
+  font-size:34px;
+  margin-bottom:20px;
+}
+
+/* =========================
+   GRID
+========================= */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+
+/* CARDS */
+.card{
+  padding:20px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  border-color:var(--cyan);
+  box-shadow:0 0 25px rgba(0,212,255,0.25);
+}
+
+/* =========================
+   SCROLL ROWS
+========================= */
+.scroll{
+  display:flex;
+  overflow-x:auto;
+  gap:15px;
+  padding-bottom:10px;
+}
+
+/* =========================
+   RESEARCH
+========================= */
+.research{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.pdf embed{
+  width:100%;
+  height:420px;
+  border-radius:12px;
+}
+
+/* =========================
+   PHOTO GALLERY
+========================= */
+.hidden{
+  display:none;
+}
+
+img{
+  width:100%;
+  border-radius:12px;
+}
+
+/* BUTTON */
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:10px;
+  background:var(--purple);
+  color:white;
+  cursor:pointer;
+  font-family:"Share Tech Mono", monospace;
+}
+
+button:hover{
+  background:var(--pink);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <h1>Stephen Kapalczynski</h1>
+  <p>Marketing • UX • Front-End • Storytelling • Research</p>
+</header>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#projects">Projects</a>
+  <a href="#canva">Canva</a>
+  <a href="#research">Research</a>
+  <a href="#media">Media</a>
+  <a href="#photo">Photography</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <h2>Creative Digital Designer & UX Researcher</h2>
+  <p>I build experiences across marketing, design, research, and storytelling.</p>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+<h2 class="section-title">Selected Projects</h2>
+<p>A collection of some of Stephen's past work throughout College.</p>
+<div class="grid">
+
+<div class="card">
+<h3>BudgetBud</h3>
+<p>UX budgeting tool for students. Created with HTML and CSS.</p>
+<a href="BUDGETBUD.html">Open</a>
+</div>
+
+<div class="card">
+<h3>VR Style Guide</h3>
+<p>UX accessibility system for a Virtual Reality Game focused on Disaster Prepardness research.</p>
+<a href="Style Guide.pdf">View PDF</a>
+</div>
+
+<div class="card">
+<h3>Figma Wireframes</h3>
+<p>Fashion app UX mockup.</p>
+<a href="https://www.figma.com/proto/OQJDzp5epyC7Ze2xsN5grt/Fashion?node-id=21-50&t=wncxmP9DGCTo5ZAu-1">Open</a>
+</div>
+
+</div>
+</section>
+
+<!-- CANVA -->
+<section id="canva">
+<h2 class="section-title">Canva Projects</h2>
+
+<div class="scroll">
+  <div class="card"><h3>Brand Kit</h3><a href="#">View</a></div>
+  <div class="card"><h3>Marketing Campaign</h3><a href="#">View</a></div>
+  <div class="card"><h3>Social Media</h3><a href="#">View</a></div>
+</div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+<h2 class="section-title">Research Paper</h2>
+
+<div class="research">
+
+<div>
+<h3>Generational Gap in Online Communication</h3>
+<p>UX research on slang comprehension across generations.</p>
+<a href="paper.pdf">Download PDF</a>
+</div>
+
+<div class="pdf">
+<embed src="paper.pdf"/>
+</div>
+
+</div>
+</section>
+
+<!-- MEDIA -->
+<section id="media">
+<h2 class="section-title">Media & Features</h2>
+
+<div class="scroll">
+<a class="card" href="https://www.instagram.com/p/DQsBwvukUhu/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">Instagram Feature</a>
+<a class="card" href="https://www.tiktok.com/@ualbany/video/7601299115653319991?is_from_webapp=1&sender_device=pc&web_id=7649842165338621471">TikTok Feature</a>
+<a class="card" href="https://www.albany.edu/news-center/news/2025-cehcs-lego-challenge-inspires-next-generation-innovators">News Feature</a>
+</div>
+</section>
+
+<!-- PHOTOGRAPHY -->
+<section id="photo">
+<h2 class="section-title">Photography</h2>
+
+<button onclick="toggleGallery()">Toggle Gallery</button>
+
+<div id="gallery" class="grid hidden">
+<img src="image1.jpeg"/>
+<img src="image2.jpeg"/>
+<img src="image3.jpeg"/>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2 class="section-title">Contact</h2>
+
+<p>Email: skapalczynski@albany.edu</p>
+
+</section>
+
+</main>
+
+<script>
+const nav = document.getElementById("nav");
+
+window.addEventListener("scroll", () => {
+  if(window.scrollY > 120){
+    nav.classList.add("sticky");
+    document.body.classList.add("nav-active");
+  } else {
+    nav.classList.remove("sticky");
+    document.body.classList.remove("nav-active");
+  }
+});
+
+function toggleGallery(){
+  document.getElementById("gallery").classList.toggle("hidden");
+}
+</script>
+
+</body>
+</html>
